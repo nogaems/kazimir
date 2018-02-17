@@ -119,7 +119,8 @@ def parse(text, config):
     chord_to_id = {}
     id_to_name = {}
     result = {}
-    by_name = True  # add a note here
+    # Actually I don't really know would it option be used or not, but let's leave it her for now
+    by_name = True
     base = r'[\[\]\w]*\s*\w*\s*=\s*\{\s*([\[\]=\s\w,]*)\s*\}\;'
     for key, values in config.mapping.items():
         regex = str(key) + base
