@@ -119,11 +119,11 @@ def rcount(l):
 def parse(text, config):
     chord_to_id = {}
     id_to_name = {}
-    result = {}
-    # Actually I don't really know would it option be used or not, but let's leave it her for now
-    by_name = True
+    result = []
+    desc = []
     base = r'[\[\]\w]*\s*\w*\s*=\s*\{\s*([\[\]=\s\w,]*)\s*\}\;'
     for key, values in config.mapping.items():
+        desc.append(key)
         regex = str(key) + base
         chords = re.findall(regex, text)
         if len(chords) == 0:
@@ -140,6 +140,7 @@ def parse(text, config):
         if not isinstance(values['chords'], list):
             values['chords'] = [values['chords']]
         for value in values['chords']:
+            desc.append(value)
             regex = str(value) + base
             names = re.findall(regex, text)
             regex = '\[(\w+)\] = (\w+)'
@@ -152,10 +153,12 @@ def parse(text, config):
                         [name[6:]]  # To cut "CHORD_"
         for chord in chord_to_id.keys():
             if chord_to_id[chord] in id_to_name:
-                if by_name:
-                    result[', '.join(id_to_name[chord_to_id[chord]])] = chord
-                else:
-                    result[chord] = id_to_name[chord_to_id[chord]]
+                result.append(
+                    {', '.join(id_to_name[chord_to_id[chord]]): chord})
+    result = 'data = {}\ndesc = \'{}\'\noutput = \'\''.format(
+        result,
+        ''.join([desc[0], ' -> ', ', '.join(desc[1:])])
+    )
     return result
 
 
@@ -173,9 +176,6 @@ if __name__ == '__main__':
         output = sys.stdout
     else:
         output = open(args.out, 'w')
-    print('result', file=output)
-    result = pprint.pformat(parse(get_header_text(args.header), load_config(args.config)),
-                            indent=4)
+    result = parse(get_header_text(args.header), load_config(args.config))
+
     print(result, file=output)
-    # pprint.pprint(parse(get_header_text(sys.argv[1]), load_config(sys.argv[2])),
-    # indent = 4)
