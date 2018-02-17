@@ -13,6 +13,7 @@ import imp
 import re
 import copy
 import pprint
+import argparse
 
 
 class Chord:
@@ -159,7 +160,22 @@ def parse(text, config):
 
 
 if __name__ == '__main__':
-    #    header = get_header_text('chords.h')
-    #    config = load_config('example.conf')
-    pprint.pprint(parse(get_header_text(sys.argv[1]), load_config(sys.argv[2])),
-                  indent=4)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('header',
+                        help='path or URL to the *.h file')
+    parser.add_argument('config',
+                        help='path to the configuration file')
+    parser.add_argument('-o', '--out',
+                        help='specify an output file, if not set - print the result to the stdout',
+                        action='store', default=False)
+    args = parser.parse_args()
+    if not args.out:
+        output = sys.stdout
+    else:
+        output = open(args.out, 'w')
+    print('result', file=output)
+    result = pprint.pformat(parse(get_header_text(args.header), load_config(args.config)),
+                            indent=4)
+    print(result, file=output)
+    # pprint.pprint(parse(get_header_text(sys.argv[1]), load_config(sys.argv[2])),
+    # indent = 4)
