@@ -16,22 +16,43 @@ class IntegrityError(Exception):
 
 class Artist:
     layout = None
+    # There's the default configuration
+    config = {
+        'bg': (255, 255, 255, 255),
+        'font': 'terminus',
+        'font_color': (0, 0, 0, 255),
+        'cell_size': 16,  # The size of a side of the square in pixels
+        'cell_bg': (102, 102, 102, 255),
+        'cell_fg': (241, 194, 50, 255)
+    }
 
-    def __init__(self, name):
+    def __init__(self, name, config='config.py'):
         self.load_layout(name)
         self.normalize_optionals()
+        self.load_config(config)
 
-    def load_layout(self, path):
+    def safe_load(self, path):
         code = open(path).read()
         if not self.issecure(code):
             raise SecureError(
                 'The code you\'re going to load is not secure and contains potencially dangerous parts')
-        layout = imp.load_source('layout', path)
-        secure, reason = self.iscorrect(layout)
-        if not secure:
+        return imp.load_source('', path)
+
+    def load_layout(self, path):
+        layout = self.safe_load(path)
+        correct, reason = self.iscorrect(layout)
+        if not correct:
             raise IntegrityError(
                 'The file contents don\'t match the specification: {}'.format(reason))
         self.layout = layout
+
+    def load_config(self, path):
+        config = self.safe_load(path).config
+        for option in self.config.keys():
+            if option in config:
+                self.config[option] = config[option]
+
+    # TODO: configuration validation
 
     @staticmethod
     def issecure(code):
