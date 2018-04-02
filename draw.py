@@ -95,4 +95,4 @@ if __name__ == '__main__':
     try:
         a = Artist('example.py')
     except Exception as e:
-        print("An error occured\n{}: {}".format(e.__class__.__name__, e))
+        print("An error has occured\n{}: {}".format(e.__class__.__name__, e))
