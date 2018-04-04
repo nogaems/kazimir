@@ -29,7 +29,7 @@ class Artist:
     def __init__(self, name, config='config.py'):
         self.load_layout(name)
         self.normalize_optionals()
-        self.load_config(config)
+        self.load_config()
 
     def safe_load(self, path):
         code = open(path).read()
@@ -46,8 +46,14 @@ class Artist:
                 'The file contents don\'t match the specification: {}'.format(reason))
         self.layout = layout
 
-    def load_config(self, path):
-        config = self.safe_load(path).config
+    def load_config(self, path=None):
+        if not path:
+            if hasattr(self.layout, 'config'):
+                config = self.layout.config
+            else:
+                return
+        else:
+            config = self.safe_load(path).config
         for option in self.config.keys():
             if option in config:
                 self.config[option] = config[option]
