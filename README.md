@@ -20,6 +20,16 @@ desc = 'Some text here'
 
 # optional, if not set will be used a value from the utility CLI
 output = '/path/to/the/desired/place'
+
+# optional, if not set will be used default hardcoded values
+config = {
+    'bg': (255, 255, 255, 255),
+    'font': 'terminus',
+    'font_color': (0, 0, 0, 255),
+    'cell_size': 16,  # The size of a side of the square in pixels
+    'cell_bg': (102, 102, 102, 255),
+    'cell_fg': (241, 194, 50, 255)
+}
 ```
 
 That's it. Fields that have been passed as None won't be drawn at all.
