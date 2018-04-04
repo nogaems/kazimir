@@ -19,8 +19,10 @@ class Artist:
     # There's the default configuration
     config = {
         'bg': (255, 255, 255, 255),
-        'font': 'terminus',
+        'cols': 8,  # Amount of columns of chords
+        'font': 'xos4 terminus',
         'font_color': (0, 0, 0, 255),
+        'font_size': 12,
         'cell_size': 16,  # The size of a side of the square in pixels
         'cell_bg': (102, 102, 102, 255),
         'cell_fg': (241, 194, 50, 255)
