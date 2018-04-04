@@ -157,8 +157,8 @@ class Artist:
                 )
                 if int(cell) == 1:
                     draw.ellipse(
-                        [cursor[0] + self.spacing / 2,
-                         cursor[1] + self.spacing / 2,
+                        [cursor[0] + self.spacing,
+                         cursor[1] + self.spacing,
                          cursor[0] + self.config['cell_size'] -
                          self.spacing / 2,
                          cursor[1] + self.config['cell_size'] -
