@@ -25,7 +25,7 @@ output = '/path/to/the/desired/place'
 config = {
     'bg': (255, 255, 255, 255),
     'cols': 8,  # Amount of columns of chords
-    'font': 'xos4 terminus',
+    'font': './fonts/TerminusTTF-4.40.1.ttf',
     'font_color': (0, 0, 0, 255),
     'font_size': 12,
     'cell_size': 16,  # The size of a side of the square in pixels
