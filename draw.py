@@ -26,8 +26,8 @@ class Artist:
         'cols': 8,  # Amount of columns of chords
         'font': './fonts/TerminusTTF-4.40.1.ttf',
         'font_color': (0, 0, 0, 255),
-        'font_size': 12,
-        'cell_size': 16,  # The size of a side of the square in pixels
+        'font_size': 16,
+        'cell_size': 32,  # The size of a side of the square in pixels
         'cell_bg': (102, 102, 102, 255),
         'cell_fg': (241, 194, 50, 255)
     }
