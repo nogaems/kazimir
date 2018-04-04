@@ -30,7 +30,7 @@ class Chord:
         if rcount(layout) == 0 or len(value) != rcount(layout):
             print('Incorrect layout configuration')
             return None
-        value = list(value)
+        value = list(value)[::-1]
         # Gvido for fuck's sake go kill yourself
         result = copy.deepcopy(layout)
         for i in range(len(result)):
