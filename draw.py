@@ -186,7 +186,8 @@ class Artist:
         for chord in self.layout.data:
             chords.append(self.draw_chord(chord, width, height))
         desc_w, desc_h = self.font.getsize(self.layout.desc)
-        result_w = self.config['cols'] * width
+        result_w = self.config['cols'] * width if \
+            len(chords) >= self.config['cols'] else len(chords) * width
         result_h = math.ceil(len(chords) / self.config['cols']) * height + \
             self.spacing * 2 + \
             desc_h
