@@ -5,6 +5,7 @@ import imp
 import itertools
 import math
 import os
+import argparse
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -214,10 +215,20 @@ class Artist:
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file',
+                        help='path to the layout file')
+    parser.add_argument('-o', '--out',
+                        help='specify an output file',
+                        action='store', default=False)
+    args = parser.parse_args()
+    if args.out:
+        output = args.out
+    else:
+        output = args.file + '.png'
     try:
-        a = Artist('example2.py')
-        r = a.draw()
-        r.save('chords.png')
+        a = Artist(args.file)
+        a.draw().save(output)
 
     except Exception as e:
         print("An error has occured\n{}: {}".format(e.__class__.__name__, e))
