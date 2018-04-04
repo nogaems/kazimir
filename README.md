@@ -36,6 +36,6 @@ config = {
 
 That's it. Fields that have been passed as None won't be drawn at all.
 
-## Configuration file specification
+The resulting picture is going to be like this:
 
-I'll write about it later because at this moment I know nothing about it lol.
+![result](https://github.com/nogaems/kazimir/raw/examples/result.png)
